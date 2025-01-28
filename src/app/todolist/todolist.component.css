@@ -1,0 +1,9 @@
+.edit {
+  border: solid 2x orange;
+}
+.not-edit {
+  border: none;
+}
+.crossed {
+  text-decoration: line-through;
+}

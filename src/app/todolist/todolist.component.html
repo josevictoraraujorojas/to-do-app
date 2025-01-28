@@ -40,16 +40,58 @@
         <th scope="col">Task</th>
         <th scope="col">Completed</th>
         <th scope="col">Delete</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Save</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let t of taskArray; index as i">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ t.taskName }}</td>
+
+        <td>
+          <input
+            #taskinput
+            [ngClass]="{
+              edit: t.isEditable,
+              'not-edit': !t.isEditable,
+              crossed: t.isCompleted
+            }"
+            type="text"
+            class="form-control"
+            id="taskInTable"
+            value="{{ t.taskName }}"
+            [readOnly]="!t.isEditable"
+          />
+        </td>
+
         <td><input (change)="onCheck(i)" id="myCheckBox" type="checkbox" /></td>
         <td>
-          <button class="btn btn-danger btn-small" (click)="onDelet(i)">
+          <button
+            id="delete"
+            class="btn btn-danger btn-small"
+            (click)="onDelet(i)"
+          >
             Delete
+          </button>
+        </td>
+        <td>
+          <button
+            id="edit"
+            class="btn btn-primary btn-small"
+            (click)="onEdit(i)"
+            [disabled]="t.isEditable"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            id="save"
+            class="btn btn-warning btn-small"
+            (click)="onSave(i, taskinput.value)"
+            [disabled]="!t.isEditable"
+          >
+            Save
           </button>
         </td>
       </tr>
